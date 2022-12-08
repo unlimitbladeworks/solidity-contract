@@ -2,8 +2,8 @@
 
 本仓库为本人自用的 solidity 代码仓库，开源出来供大家参考
 
-contracts ：部署合约的源代码 \n
-migrations：部署合约的js脚本 \n
+contracts ：部署合约的源代码  
+migrations：部署合约的js脚本  
 truffle-config.js: truffle的配置文件
 
 
