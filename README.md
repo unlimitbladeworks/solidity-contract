@@ -32,7 +32,7 @@ touch .env
 vim .env 复制下面的内容然后 :wq 即可
 ```
 
-```env
+```js
 privateKey=你部署合约钱包的私钥
 infuraId=infura公司申请的id
 etherscanApiKey=etherscan申请的api key
