@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <button onclick="connect()">Connect wallet</button>
+        <div>ChainId:<span id="chain_id"></span></div>
+        <div>BlockNumber:<span id="block_number"></span></div>
+        <div>Current Account:<span id="account_address"></span></div>
+        <div>Current Account Balance:<span id="account_balance"></span></div>
+
+        <hr>
+        <input type="text" id="contract_address"/>
+        <button onclick="read()">Read Contract</button>
+
+        <div>TokenSymbol:<span id="token_symbol"></span></div>
+        <div>TotalSupply:<span id="total_supply"></span></div>
+        <div>TokenBalance:<span id="token_balance"></span></div>
+
+        <hr>
+
+        <input type="text" id="to_address">
+        <input type="text" id="transfer_amount">
+        <button onclick="transfer()">Transfer</button>
+
+        <div>estimateGas:<span id="estimate_gas"></span></div>
+        <div>gasPrice:<span id="gas_price"></span></div>
+        <div>txHash:<span id="tx_hash"></span></div>
+    </div>
+    <script src="./js/web3.min.js"></script>
+    <script src="./js/app.js"></script>
+</body>
+</html>
