@@ -107,6 +107,7 @@ module.exports = {
 
   plugins: ['truffle-plugin-verify'],
 
+  //国内验证，需要本地端口号
   verify: {
     proxy: {
       host: '127.0.0.1',
