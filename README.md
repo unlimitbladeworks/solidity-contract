@@ -37,3 +37,19 @@ privateKey=你部署合约钱包的私钥
 infuraId=infura公司申请的id
 etherscanApiKey=etherscan申请的api key
 ```
+
+
+
+# 启动运行
+
+
+进入到主目录，执行命令:
+
+```js
+npm install
+```
+修改你要部署的脚本，前缀需要加 1_ ，truffle有文件命名的识别
+安装完毕后，进入 migrations 目录执行你要部署的脚本：
+```js
+node 1_xxx.js
+```
