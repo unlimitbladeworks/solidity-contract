@@ -72,3 +72,15 @@ truffle migrate --network goerli
 //最早是rinkeby，但以太坊转为 pos 后，rinkeby暂时不支持测试网了
 truffle migrate --network rinkeby  
 ```
+
+开源验证命令：  
+  
+```js
+truffle run verify NFTAllowlist  --network goerli --debug
+```
+
+# 额外参考
+
+之前写过一篇文章，关于如何从 0 开始用 truffle 部署合约的，可以参考：
+
+https://mirror.xyz/yidakoumi.eth/Uy-JQu3i6gJptGk9AfQVVWuYPu2rGGJNrUg4j9-UDIw

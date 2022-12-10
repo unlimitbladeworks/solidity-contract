@@ -1,6 +1,6 @@
 // 阅读以下代码，尝试将合约中的所有资金取出：
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8;
+pragma solidity ^0.8.11;
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract VIPChecker is Ownable {
