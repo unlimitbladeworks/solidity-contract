@@ -71,7 +71,7 @@ module.exports = {
     goerli: {
       provider: () => new HDWalletProvider(privateKey, "wss://goerli.infura.io/ws/v3/" + infuraId),
       gas: 10000000,
-      gasPrice: 15000000000,
+      gasPrice: 3000000000,  //Gwei，10^9wei = 1Gwei,所以 15000000000 = 15Gwei
       network_id: 5,
       timeoutBlocks: 40000,
     },

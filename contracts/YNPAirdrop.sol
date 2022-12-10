@@ -1,22 +1,22 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.11;
 
-import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "erc721a/contracts/ERC721A.sol";
 
 contract YNPAirdrop is ERC721A, Ownable {
-    using Counters for Counters.Counter;
+    
+    struct MintConfig {
+        //nft基础图片 uri
+        string baseTokenURI;
+        //每个钱包最大空投的数量限制，初次设置可为 1
+        uint32 maxPerAddress;
+        //最大流动的 NFT 数量，初次设置可为 333
+        uint256 maxSupply;
+    }
 
-    //最大 nft 数量
-    uint256 public MAX_SUPPLY = 333;
-    //每个钱包可以空投兑换的最大数量
-    uint256 public MAX_PER_DROP = 1;
-
-    Counters.Counter private _tokenIds;
-
-    string public baseURI;
-
+    MintConfig public config;
+    //记录已经空投过的数量
     mapping(address => uint256) public claimed;
 
     constructor() ERC721A("YeePay NFT PASS", "YNP") {}
@@ -24,10 +24,24 @@ contract YNPAirdrop is ERC721A, Ownable {
     // Airdrop NFT，空投地址 & 个数
     function airdropNfts(address airdropAddress, uint256 quantity) public onlyOwner {
         //校验 NFT 总数量
-        require(_totalMinted() + quantity <= MAX_SUPPLY, "Over max supply");
+        require(_totalMinted() + quantity <= config.maxSupply, "Over max supply");
         //校验每个钱包地址的最大数量
-        require(claimed[airdropAddress] < MAX_PER_DROP,"Over max per airdrop");
+        require(claimed[airdropAddress] < config.maxPerAddress, "Over max per airdrop");
         _mintNFT(airdropAddress, quantity);
+    }
+
+    function setConfig(
+        string memory baseTokenURI,
+        uint32 maxPerAddress,
+        uint256 maxSupply
+    ) external onlyOwner {
+        config.baseTokenURI = baseTokenURI;
+        config.maxPerAddress = maxPerAddress;
+        config.maxSupply = maxSupply;
+    }
+
+    function setBaseURI(string calldata baseURI) external onlyOwner {
+        config.baseTokenURI = baseURI;
     }
 
     function _mintNFT(address airdropAddress, uint256 quantity) private {
@@ -36,19 +50,7 @@ contract YNPAirdrop is ERC721A, Ownable {
         _safeMint(airdropAddress, quantity);
     }
 
-    function setBaseURI(string calldata _URI) external onlyOwner {
-        baseURI = _URI;
-    }
-
     function _baseURI() internal view virtual override returns (string memory) {
-        return baseURI;
-    }
-
-    function setMaxSupply(uint256 supply) external onlyOwner {
-        MAX_SUPPLY = supply;
-    }
-
-    function setMaxPerAirdrop(uint256 airdrop) external onlyOwner {
-        MAX_PER_DROP = airdrop;
+        return config.baseTokenURI;
     }
 }
