@@ -5,29 +5,35 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
+
 
 contract MyFirstNft is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
-    using Counters for Counters.Counter;
-
-    Counters.Counter private _tokenIdCounter;
-
     uint256 MAX_SUPPLY = 100000;
+    address payable private _treasury;
+    uint256 public wlPrice = 0.0001 ether;
+    uint256 public publicPrice = 0.0005 ether;
+    bool public wlMintStatus = false;
+    bool public publicMintStatus = false;
 
-    constructor() ERC721("suyu's nft", "SY NFT") {}
-
-    function safeMint(address to, string memory uri) public {
-        uint256 tokenId = _tokenIdCounter.current();
-        require(
-            _tokenIdCounter.current() <= MAX_SUPPLY,
-            "reach max supply!stop!!!"
-        );
-        _tokenIdCounter.increment();
-        _safeMint(to, tokenId);
-        _setTokenURI(tokenId, uri);
+    constructor() ERC721("suyu's nft", "SY NFT") {
+        _treasury = payable(msg.sender);
     }
 
-    // The following functions are overrides required by Solidity.
+    function wlMint(uint256 quantity) external payable {
+        require(wlMintStatus, "Not mintable during wl");
+        require(totalSupply() + quantity <= MAX_SUPPLY, "Over max supply");
+        uint256 totalPrice = quantity * wlPrice;
+        require(msg.value >= totalPrice, "Wrong amount of ETH sent.");
+        _safeMint(msg.sender, quantity);
+    }
+
+    function publicMint(uint256 quantity) external payable {
+        require(publicMintStatus, "Not mintable during public");
+        require(totalSupply() + quantity <= MAX_SUPPLY, "Over max supply");
+        uint256 totalPrice = quantity * publicPrice;
+        require(msg.value >= totalPrice, "Wrong amount of ETH sent.");
+        _safeMint(msg.sender, quantity);
+    }
 
     function _beforeTokenTransfer(
         address from,
@@ -43,6 +49,12 @@ contract MyFirstNft is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         override(ERC721, ERC721URIStorage)
     {
         super._burn(tokenId);
+    }
+
+    function withdraw() public onlyOwner {
+        require(msg.sender == _treasury, "Caller is not the treasury");
+        (bool success, ) = _treasury.call{value: address(this).balance}("");
+        require(success, "Transfer failed.");
     }
 
     function tokenURI(uint256 tokenId)
@@ -62,4 +74,13 @@ contract MyFirstNft is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     {
         return super.supportsInterface(interfaceId);
     }
+
+    function setWlStatus(bool _status) public onlyOwner {
+        wlMintStatus = _status;
+    }
+
+    function setPublicStatus(bool _status) public onlyOwner {
+        publicMintStatus = _status;
+    }
+
 }

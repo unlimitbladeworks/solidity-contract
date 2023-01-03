@@ -17,9 +17,12 @@
     "dotenv": "^16.0.3",
     "erc721a": "^4.2.3",
     "ethereumjs-abi": "^0.6.8",
+    "ethers": "^5.7.2",
+    "find-config": "^1.0.0",
     "http-server": "^14.1.1",
     "keccak256": "^1.0.6",
     "merkletreejs": "^0.2.32",
+    "socks-proxy-agent": "^7.0.0",
     "truffle-plugin-verify": "^0.5.26",
     "tunnel": "^0.0.6",
     "web3-provider-engine": "^16.0.4"

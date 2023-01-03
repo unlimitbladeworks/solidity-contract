@@ -1,4 +1,4 @@
-const ynp = artifacts.require("YNPAirdrop");
+const ynp = artifacts.require("MyFirstNft");
 
 module.exports = function (deployer) {
   deployer.deploy(ynp);

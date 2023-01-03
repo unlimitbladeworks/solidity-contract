@@ -5,7 +5,6 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "erc721a/contracts/ERC721A.sol";
 
 contract YNPAirdrop is ERC721A, Ownable {
-    
     struct MintConfig {
         //nft基础图片 uri
         string baseTokenURI;
@@ -22,12 +21,26 @@ contract YNPAirdrop is ERC721A, Ownable {
     constructor() ERC721A("YeePay NFT PASS", "YNP") {}
 
     // Airdrop NFT，空投地址 & 个数
-    function airdropNfts(address airdropAddress, uint256 quantity) public onlyOwner {
+    function airdropNfts(address airdropAddress, uint256 quantity)
+        public
+        onlyOwner
+    {
         //校验 NFT 总数量
-        require(_totalMinted() + quantity <= config.maxSupply, "Over max supply");
+        require(
+            _totalMinted() + quantity <= config.maxSupply,
+            "Over max supply"
+        );
         //校验每个钱包地址的最大数量
-        require(claimed[airdropAddress] < config.maxPerAddress, "Over max per airdrop");
+        require(
+            claimed[airdropAddress] + quantity <= config.maxPerAddress,
+            "Over max per airdrop"
+        );
         _mintNFT(airdropAddress, quantity);
+    }
+
+    function withdrawMoney() external onlyOwner {
+        (bool success, ) = msg.sender.call{value: address(this).balance}("");
+        require(success, "Transfer failed");
     }
 
     function setConfig(
@@ -44,13 +57,13 @@ contract YNPAirdrop is ERC721A, Ownable {
         config.baseTokenURI = baseURI;
     }
 
+    function _baseURI() internal view virtual override returns (string memory) {
+        return config.baseTokenURI;
+    }
+
     function _mintNFT(address airdropAddress, uint256 quantity) private {
         //给每个钱包添加数量
         claimed[airdropAddress] += quantity;
         _safeMint(airdropAddress, quantity);
-    }
-
-    function _baseURI() internal view virtual override returns (string memory) {
-        return config.baseTokenURI;
     }
 }
