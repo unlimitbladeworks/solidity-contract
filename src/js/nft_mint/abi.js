@@ -1,10 +1,183 @@
 const abi =[
     {
         "inputs":[
-
+            {
+                "internalType":"string",
+                "name":"_name",
+                "type":"string"
+            },
+            {
+                "internalType":"string",
+                "name":"_symbol",
+                "type":"string"
+            },
+            {
+                "internalType":"uint256",
+                "name":"_minimum",
+                "type":"uint256"
+            },
+            {
+                "internalType":"address",
+                "name":"_builder",
+                "type":"address"
+            },
+            {
+                "internalType":"address[]",
+                "name":"_shareholders",
+                "type":"address[]"
+            },
+            {
+                "internalType":"uint256[]",
+                "name":"_shares",
+                "type":"uint256[]"
+            }
         ],
         "stateMutability":"nonpayable",
         "type":"constructor"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"ApprovalCallerNotOwnerNorApproved",
+        "type":"error"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"ApprovalQueryForNonexistentToken",
+        "type":"error"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"BalanceQueryForZeroAddress",
+        "type":"error"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"FreeLimitExceeded",
+        "type":"error"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"InvalidPrice",
+        "type":"error"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"InvalidTier",
+        "type":"error"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"MintERC2309QuantityExceedsLimit",
+        "type":"error"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"MintToZeroAddress",
+        "type":"error"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"MintZeroQuantity",
+        "type":"error"
+    },
+    {
+        "inputs":[
+            {
+                "internalType":"address",
+                "name":"operator",
+                "type":"address"
+            }
+        ],
+        "name":"OperatorNotAllowed",
+        "type":"error"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"OwnerQueryForNonexistentToken",
+        "type":"error"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"OwnershipNotInitializedForExtraData",
+        "type":"error"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"SaleInactive",
+        "type":"error"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"SupplyExceeded",
+        "type":"error"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"TransferCallerNotOwnerNorApproved",
+        "type":"error"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"TransferFromIncorrectOwner",
+        "type":"error"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"TransferToNonERC721ReceiverImplementer",
+        "type":"error"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"TransferToZeroAddress",
+        "type":"error"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"URIQueryForNonexistentToken",
+        "type":"error"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"WalletLimitExceeded",
+        "type":"error"
     },
     {
         "anonymous":false,
@@ -61,6 +234,62 @@ const abi =[
         "inputs":[
             {
                 "indexed":true,
+                "internalType":"uint256",
+                "name":"fromTokenId",
+                "type":"uint256"
+            },
+            {
+                "indexed":false,
+                "internalType":"uint256",
+                "name":"toTokenId",
+                "type":"uint256"
+            },
+            {
+                "indexed":true,
+                "internalType":"address",
+                "name":"from",
+                "type":"address"
+            },
+            {
+                "indexed":true,
+                "internalType":"address",
+                "name":"to",
+                "type":"address"
+            }
+        ],
+        "name":"ConsecutiveTransfer",
+        "type":"event"
+    },
+    {
+        "anonymous":false,
+        "inputs":[
+            {
+                "indexed":true,
+                "internalType":"contract IERC20",
+                "name":"token",
+                "type":"address"
+            },
+            {
+                "indexed":false,
+                "internalType":"address",
+                "name":"to",
+                "type":"address"
+            },
+            {
+                "indexed":false,
+                "internalType":"uint256",
+                "name":"amount",
+                "type":"uint256"
+            }
+        ],
+        "name":"ERC20PaymentReleased",
+        "type":"event"
+    },
+    {
+        "anonymous":false,
+        "inputs":[
+            {
+                "indexed":true,
                 "internalType":"address",
                 "name":"previousOwner",
                 "type":"address"
@@ -73,6 +302,89 @@ const abi =[
             }
         ],
         "name":"OwnershipTransferred",
+        "type":"event"
+    },
+    {
+        "anonymous":false,
+        "inputs":[
+            {
+                "indexed":false,
+                "internalType":"address",
+                "name":"account",
+                "type":"address"
+            },
+            {
+                "indexed":false,
+                "internalType":"uint256",
+                "name":"shares",
+                "type":"uint256"
+            }
+        ],
+        "name":"PayeeAdded",
+        "type":"event"
+    },
+    {
+        "anonymous":false,
+        "inputs":[
+            {
+                "indexed":false,
+                "internalType":"address",
+                "name":"from",
+                "type":"address"
+            },
+            {
+                "indexed":false,
+                "internalType":"uint256",
+                "name":"amount",
+                "type":"uint256"
+            }
+        ],
+        "name":"PaymentReceived",
+        "type":"event"
+    },
+    {
+        "anonymous":false,
+        "inputs":[
+            {
+                "indexed":false,
+                "internalType":"address",
+                "name":"to",
+                "type":"address"
+            },
+            {
+                "indexed":false,
+                "internalType":"uint256",
+                "name":"amount",
+                "type":"uint256"
+            }
+        ],
+        "name":"PaymentReleased",
+        "type":"event"
+    },
+    {
+        "anonymous":false,
+        "inputs":[
+            {
+                "indexed":false,
+                "internalType":"bool",
+                "name":"_val",
+                "type":"bool"
+            }
+        ],
+        "name":"SaleStateChanged",
+        "type":"event"
+    },
+    {
+        "anonymous":false,
+        "inputs":[
+            {
+                "indexed":false,
+                "internalType":"uint256",
+                "name":"_val",
+                "type":"uint256"
+            }
+        ],
+        "name":"TotalSupplyChanged",
         "type":"event"
     },
     {
@@ -102,6 +414,66 @@ const abi =[
     },
     {
         "inputs":[
+
+        ],
+        "name":"MAX_SUPPLY",
+        "outputs":[
+            {
+                "internalType":"uint256",
+                "name":"",
+                "type":"uint256"
+            }
+        ],
+        "stateMutability":"view",
+        "type":"function"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"MAX_WALLET",
+        "outputs":[
+            {
+                "internalType":"uint256",
+                "name":"",
+                "type":"uint256"
+            }
+        ],
+        "stateMutability":"view",
+        "type":"function"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"OPERATOR_FILTER_REGISTRY",
+        "outputs":[
+            {
+                "internalType":"contract IOperatorFilterRegistry",
+                "name":"",
+                "type":"address"
+            }
+        ],
+        "stateMutability":"view",
+        "type":"function"
+    },
+    {
+        "inputs":[
+            {
+                "internalType":"address payable",
+                "name":"_account",
+                "type":"address"
+            }
+        ],
+        "name":"agencyRelease",
+        "outputs":[
+
+        ],
+        "stateMutability":"nonpayable",
+        "type":"function"
+    },
+    {
+        "inputs":[
             {
                 "internalType":"address",
                 "name":"to",
@@ -117,7 +489,7 @@ const abi =[
         "outputs":[
 
         ],
-        "stateMutability":"nonpayable",
+        "stateMutability":"payable",
         "type":"function"
     },
     {
@@ -134,6 +506,57 @@ const abi =[
                 "internalType":"uint256",
                 "name":"",
                 "type":"uint256"
+            }
+        ],
+        "stateMutability":"view",
+        "type":"function"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"baseURI",
+        "outputs":[
+            {
+                "internalType":"string",
+                "name":"",
+                "type":"string"
+            }
+        ],
+        "stateMutability":"view",
+        "type":"function"
+    },
+    {
+        "inputs":[
+            {
+                "internalType":"uint256",
+                "name":"_totalSupply",
+                "type":"uint256"
+            }
+        ],
+        "name":"currentTier",
+        "outputs":[
+            {
+                "components":[
+                    {
+                        "internalType":"uint16",
+                        "name":"total",
+                        "type":"uint16"
+                    },
+                    {
+                        "internalType":"uint128",
+                        "name":"cost",
+                        "type":"uint128"
+                    },
+                    {
+                        "internalType":"bool",
+                        "name":"free",
+                        "type":"bool"
+                    }
+                ],
+                "internalType":"struct Kigu.Tier",
+                "name":"",
+                "type":"tuple"
             }
         ],
         "stateMutability":"view",
@@ -184,6 +607,21 @@ const abi =[
     },
     {
         "inputs":[
+            {
+                "internalType":"uint256",
+                "name":"_amt",
+                "type":"uint256"
+            }
+        ],
+        "name":"mint",
+        "outputs":[
+
+        ],
+        "stateMutability":"payable",
+        "type":"function"
+    },
+    {
+        "inputs":[
 
         ],
         "name":"name",
@@ -192,6 +630,25 @@ const abi =[
                 "internalType":"string",
                 "name":"",
                 "type":"string"
+            }
+        ],
+        "stateMutability":"view",
+        "type":"function"
+    },
+    {
+        "inputs":[
+            {
+                "internalType":"address",
+                "name":"_wallet",
+                "type":"address"
+            }
+        ],
+        "name":"numberMinted",
+        "outputs":[
+            {
+                "internalType":"uint256",
+                "name":"",
+                "type":"uint256"
             }
         ],
         "stateMutability":"view",
@@ -235,27 +692,16 @@ const abi =[
         "inputs":[
             {
                 "internalType":"uint256",
-                "name":"quantity",
+                "name":"index",
                 "type":"uint256"
             }
         ],
-        "name":"publicMint",
-        "outputs":[
-
-        ],
-        "stateMutability":"payable",
-        "type":"function"
-    },
-    {
-        "inputs":[
-
-        ],
-        "name":"publicMintStatus",
+        "name":"payee",
         "outputs":[
             {
-                "internalType":"bool",
+                "internalType":"address",
                 "name":"",
-                "type":"bool"
+                "type":"address"
             }
         ],
         "stateMutability":"view",
@@ -263,9 +709,115 @@ const abi =[
     },
     {
         "inputs":[
+            {
+                "internalType":"address",
+                "name":"account",
+                "type":"address"
+            }
+        ],
+        "name":"releasable",
+        "outputs":[
+            {
+                "internalType":"uint256",
+                "name":"",
+                "type":"uint256"
+            }
+        ],
+        "stateMutability":"view",
+        "type":"function"
+    },
+    {
+        "inputs":[
+            {
+                "internalType":"contract IERC20",
+                "name":"token",
+                "type":"address"
+            },
+            {
+                "internalType":"address",
+                "name":"account",
+                "type":"address"
+            }
+        ],
+        "name":"releasable",
+        "outputs":[
+            {
+                "internalType":"uint256",
+                "name":"",
+                "type":"uint256"
+            }
+        ],
+        "stateMutability":"view",
+        "type":"function"
+    },
+    {
+        "inputs":[
+            {
+                "internalType":"address payable",
+                "name":"account",
+                "type":"address"
+            }
+        ],
+        "name":"release",
+        "outputs":[
 
         ],
-        "name":"publicPrice",
+        "stateMutability":"nonpayable",
+        "type":"function"
+    },
+    {
+        "inputs":[
+            {
+                "internalType":"contract IERC20",
+                "name":"token",
+                "type":"address"
+            },
+            {
+                "internalType":"address",
+                "name":"account",
+                "type":"address"
+            }
+        ],
+        "name":"release",
+        "outputs":[
+
+        ],
+        "stateMutability":"nonpayable",
+        "type":"function"
+    },
+    {
+        "inputs":[
+            {
+                "internalType":"contract IERC20",
+                "name":"token",
+                "type":"address"
+            },
+            {
+                "internalType":"address",
+                "name":"account",
+                "type":"address"
+            }
+        ],
+        "name":"released",
+        "outputs":[
+            {
+                "internalType":"uint256",
+                "name":"",
+                "type":"uint256"
+            }
+        ],
+        "stateMutability":"view",
+        "type":"function"
+    },
+    {
+        "inputs":[
+            {
+                "internalType":"address",
+                "name":"account",
+                "type":"address"
+            }
+        ],
+        "name":"released",
         "outputs":[
             {
                 "internalType":"uint256",
@@ -281,6 +833,21 @@ const abi =[
 
         ],
         "name":"renounceOwnership",
+        "outputs":[
+
+        ],
+        "stateMutability":"nonpayable",
+        "type":"function"
+    },
+    {
+        "inputs":[
+            {
+                "internalType":"uint256",
+                "name":"_amt",
+                "type":"uint256"
+            }
+        ],
+        "name":"reserve",
         "outputs":[
 
         ],
@@ -309,7 +876,7 @@ const abi =[
         "outputs":[
 
         ],
-        "stateMutability":"nonpayable",
+        "stateMutability":"payable",
         "type":"function"
     },
     {
@@ -339,7 +906,22 @@ const abi =[
         "outputs":[
 
         ],
-        "stateMutability":"nonpayable",
+        "stateMutability":"payable",
+        "type":"function"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"saleActive",
+        "outputs":[
+            {
+                "internalType":"bool",
+                "name":"",
+                "type":"bool"
+            }
+        ],
+        "stateMutability":"view",
         "type":"function"
     },
     {
@@ -365,12 +947,12 @@ const abi =[
     {
         "inputs":[
             {
-                "internalType":"bool",
-                "name":"_status",
-                "type":"bool"
+                "internalType":"string",
+                "name":"_val",
+                "type":"string"
             }
         ],
-        "name":"setPublicStatus",
+        "name":"setBaseURI",
         "outputs":[
 
         ],
@@ -381,15 +963,100 @@ const abi =[
         "inputs":[
             {
                 "internalType":"bool",
-                "name":"_status",
+                "name":"_val",
                 "type":"bool"
             }
         ],
-        "name":"setWlStatus",
+        "name":"setSaleState",
         "outputs":[
 
         ],
         "stateMutability":"nonpayable",
+        "type":"function"
+    },
+    {
+        "inputs":[
+            {
+                "internalType":"uint256",
+                "name":"_index",
+                "type":"uint256"
+            },
+            {
+                "internalType":"uint128",
+                "name":"_val",
+                "type":"uint128"
+            }
+        ],
+        "name":"setTierCost",
+        "outputs":[
+
+        ],
+        "stateMutability":"nonpayable",
+        "type":"function"
+    },
+    {
+        "inputs":[
+            {
+                "internalType":"address",
+                "name":"account",
+                "type":"address"
+            }
+        ],
+        "name":"shares",
+        "outputs":[
+            {
+                "internalType":"uint256",
+                "name":"",
+                "type":"uint256"
+            }
+        ],
+        "stateMutability":"view",
+        "type":"function"
+    },
+    {
+        "inputs":[
+            {
+                "internalType":"uint256",
+                "name":"_numberMinted",
+                "type":"uint256"
+            },
+            {
+                "internalType":"uint256",
+                "name":"_numberToMint",
+                "type":"uint256"
+            },
+            {
+                "components":[
+                    {
+                        "internalType":"uint16",
+                        "name":"total",
+                        "type":"uint16"
+                    },
+                    {
+                        "internalType":"uint128",
+                        "name":"cost",
+                        "type":"uint128"
+                    },
+                    {
+                        "internalType":"bool",
+                        "name":"free",
+                        "type":"bool"
+                    }
+                ],
+                "internalType":"struct Kigu.Tier",
+                "name":"_tier",
+                "type":"tuple"
+            }
+        ],
+        "name":"subtotal",
+        "outputs":[
+            {
+                "internalType":"uint256",
+                "name":"",
+                "type":"uint256"
+            }
+        ],
+        "stateMutability":"pure",
         "type":"function"
     },
     {
@@ -430,40 +1097,26 @@ const abi =[
         "inputs":[
             {
                 "internalType":"uint256",
-                "name":"index",
-                "type":"uint256"
-            }
-        ],
-        "name":"tokenByIndex",
-        "outputs":[
-            {
-                "internalType":"uint256",
                 "name":"",
                 "type":"uint256"
             }
         ],
-        "stateMutability":"view",
-        "type":"function"
-    },
-    {
-        "inputs":[
+        "name":"tiers",
+        "outputs":[
             {
-                "internalType":"address",
-                "name":"owner",
-                "type":"address"
+                "internalType":"uint16",
+                "name":"total",
+                "type":"uint16"
             },
             {
-                "internalType":"uint256",
-                "name":"index",
-                "type":"uint256"
-            }
-        ],
-        "name":"tokenOfOwnerByIndex",
-        "outputs":[
+                "internalType":"uint128",
+                "name":"cost",
+                "type":"uint128"
+            },
             {
-                "internalType":"uint256",
-                "name":"",
-                "type":"uint256"
+                "internalType":"bool",
+                "name":"free",
+                "type":"bool"
             }
         ],
         "stateMutability":"view",
@@ -483,6 +1136,55 @@ const abi =[
                 "internalType":"string",
                 "name":"",
                 "type":"string"
+            }
+        ],
+        "stateMutability":"view",
+        "type":"function"
+    },
+    {
+        "inputs":[
+            {
+                "internalType":"contract IERC20",
+                "name":"token",
+                "type":"address"
+            }
+        ],
+        "name":"totalReleased",
+        "outputs":[
+            {
+                "internalType":"uint256",
+                "name":"",
+                "type":"uint256"
+            }
+        ],
+        "stateMutability":"view",
+        "type":"function"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"totalReleased",
+        "outputs":[
+            {
+                "internalType":"uint256",
+                "name":"",
+                "type":"uint256"
+            }
+        ],
+        "stateMutability":"view",
+        "type":"function"
+    },
+    {
+        "inputs":[
+
+        ],
+        "name":"totalShares",
+        "outputs":[
+            {
+                "internalType":"uint256",
+                "name":"",
+                "type":"uint256"
             }
         ],
         "stateMutability":"view",
@@ -525,7 +1227,7 @@ const abi =[
         "outputs":[
 
         ],
-        "stateMutability":"nonpayable",
+        "stateMutability":"payable",
         "type":"function"
     },
     {
@@ -544,60 +1246,8 @@ const abi =[
         "type":"function"
     },
     {
-        "inputs":[
-
-        ],
-        "name":"withdraw",
-        "outputs":[
-
-        ],
-        "stateMutability":"nonpayable",
-        "type":"function"
-    },
-    {
-        "inputs":[
-            {
-                "internalType":"uint256",
-                "name":"quantity",
-                "type":"uint256"
-            }
-        ],
-        "name":"wlMint",
-        "outputs":[
-
-        ],
         "stateMutability":"payable",
-        "type":"function"
-    },
-    {
-        "inputs":[
-
-        ],
-        "name":"wlMintStatus",
-        "outputs":[
-            {
-                "internalType":"bool",
-                "name":"",
-                "type":"bool"
-            }
-        ],
-        "stateMutability":"view",
-        "type":"function"
-    },
-    {
-        "inputs":[
-
-        ],
-        "name":"wlPrice",
-        "outputs":[
-            {
-                "internalType":"uint256",
-                "name":"",
-                "type":"uint256"
-            }
-        ],
-        "stateMutability":"view",
-        "type":"function"
+        "type":"receive"
     }
 ]
 ;

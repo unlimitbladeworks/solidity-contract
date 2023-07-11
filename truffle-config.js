@@ -17,7 +17,7 @@
  * phrase from a file you've .gitignored so it doesn't accidentally become public.
  *
  */
-require("dotenv").config();
+require("dotenv").config({ path: require('find-config')('.env') });
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 
 var privateKey = process.env.privateKey;
@@ -70,8 +70,8 @@ module.exports = {
     // },
     goerli: {
       provider: () => new HDWalletProvider(privateKey, "wss://goerli.infura.io/ws/v3/" + infuraId),
-      gas: 6000000,
-      gasPrice: 1000000000,  //Gwei，10^9wei = 1Gwei,所以 15000000000 = 15Gwei
+      gas: 30000000,
+      gasPrice: 120859810391,  //Gwei，10^9wei = 1Gwei,所以 15000000000 = 15Gwei
       network_id: 5,
       timeoutBlocks: 40000,
     },
