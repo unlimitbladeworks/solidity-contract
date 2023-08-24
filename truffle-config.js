@@ -22,6 +22,7 @@ const HDWalletProvider = require('@truffle/hdwallet-provider');
 
 var privateKey = process.env.privateKey;
 var infuraId = process.env.infuraId;
+var alchemyArbKey = process.env.alchemyArbKey;
 var etherscanApiKey = process.env.etherscanApiKey;
 
 module.exports = {
@@ -71,8 +72,16 @@ module.exports = {
     goerli: {
       provider: () => new HDWalletProvider(privateKey, "wss://goerli.infura.io/ws/v3/" + infuraId),
       gas: 30000000,
-      gasPrice: 120859810391,  //Gwei，10^9wei = 1Gwei,所以 15000000000 = 15Gwei
+      gasPrice: 150000000,  //Gwei，10^9wei = 1Gwei,所以 15000000000 = 15Gwei
       network_id: 5,
+      timeoutBlocks: 40000,
+    },
+    
+    arbitrum: {
+      provider: () => new HDWalletProvider(privateKey, "wss://arb-mainnet.g.alchemy.com/v2/" + alchemyArbKey),
+      // gas: 30000000,
+      // gasPrice: 1000000,  //Gwei，10^9wei = 1Gwei,所以 1000000 = 0.1 Gwei
+      network_id: 42161,
       timeoutBlocks: 40000,
     },
 
@@ -93,7 +102,7 @@ module.exports = {
 
   compilers: {
     solc: {
-      version: "0.8.15",      // Fetch exact version from solc-bin (default: truffle's version)
+      version: "0.8.12",      // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       settings: {          // See the solidity docs for advice about optimization and evmVersion
         optimizer: {
